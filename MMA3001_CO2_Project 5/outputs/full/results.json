@@ -1,0 +1,16 @@
+{
+  "sensor": "6012002000326",
+  "forecast_horizon_minutes": 60,
+  "train_rows": 9988,
+  "validation_rows": 3324,
+  "test_rows": 3332,
+  "chosen_model": "tree_depth_5",
+  "heldout_test": {
+    "MAE_ppm": 11.236908957907126,
+    "RMSE_ppm": 25.831932204910082
+  },
+  "pipeline_seconds": 5.920653018000053,
+  "total_raw_co2_readings": 179447,
+  "missing_resampled_slots": 62790,
+  "notes": "Single-sensor, 15-minute bins; complete-case lag examples; chronological purged split."
+}

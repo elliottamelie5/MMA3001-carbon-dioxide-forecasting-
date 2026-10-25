@@ -1,0 +1,29 @@
+<html><head><meta charset="utf-8"><title>MMA3001 API</title><style>body{font:16px Arial;max-width:850px;margin:3em auto;line-height:1.6}pre{white-space:pre-wrap;background:#f4f4f4;padding:1em}h2{border-bottom:1px solid #ddd}</style></head><body><h1>CO₂ forecasting — Python API</h1><p>Generated from current Python function signatures and docstrings. Run pdoc for full API generation.</p>
+<h2>load_environment(zip_path, max_rows=None)</h2><pre>Parse environmental sensor JSON records from a ZIP archive.
+
+Args:
+    zip_path: Path to supplied environmental CSV ZIP.
+    max_rows: Optional CSV row limit for a smoke test.
+Returns:
+    DataFrame with sensor, timestamp (UTC), and CO2 in ppm.
+Raises:
+    ValueError: When no valid CO2 readings exist.</pre>
+<h2>prepare_series(df, sensor=None, interval=&#x27;15min&#x27;, min_points=150)</h2><pre>Build a regular series without interpolating missing intervals.
+
+Args:
+    df: Parsed CO2 readings.
+    sensor: Optional sensor ID; otherwise select the sensor with most readings.
+    interval: Pandas resampling interval.
+    min_points: Minimum nonmissing observations required.
+Returns:
+    Sensor ID and resampled pandas Series with missing slots preserved.</pre>
+<h2>make_supervised(series, horizon=4, lags=(0, 1, 2, 3, 4))</h2><pre>Construct leakage-free lag features and future targets.
+
+At 15-minute sampling, horizon=4 corresponds to one hour ahead.
+Rows with any missing lag or target are excluded; no future values are imputed.</pre>
+<h2>chronological_split(frame)</h2><pre>Split sorted examples into 60% train, 20% validation, 20% held-out test.
+
+Purge four example rows between partitions to reduce overlapping target leakage.</pre>
+<h2>score(actual, predicted)</h2><pre>Return MAE and RMSE, both measured in ppm.</pre>
+<h2>run(zip_path, output_dir=&#x27;outputs&#x27;, sensor=None, max_rows=None)</h2><pre>Run model selection on validation data and final evaluation on untouched test data.</pre>
+</body></html>
